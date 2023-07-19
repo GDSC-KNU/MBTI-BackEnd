@@ -25,14 +25,14 @@ public class Post extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @OrderBy("id asc")
-    private List<Comment> comments = new ArrayList<>();
+    private List<Reply> replies = new ArrayList<>();
 
     @Builder
-    public Post(String mbti, String nickname, String content, List<Comment> comments) {
+    public Post(String mbti, String nickname, String content, List<Reply> replies) {
         this.mbti = mbti;
         this.nickname = nickname;
         this.content = content;
-        this.comments = comments;
+        this.replies = replies;
     }
 
     public void updateContent(String content) {

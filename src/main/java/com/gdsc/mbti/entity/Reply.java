@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Table(name = "comment")
+@Table(name = "reply")
 @NoArgsConstructor
-public class Comment extends BaseTimeEntity {
+public class Reply extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,7 +26,7 @@ public class Comment extends BaseTimeEntity {
     private Post post;
 
     @Builder
-    public Comment(String mbti, String nickname, String content, Post post) {
+    public Reply(String mbti, String nickname, String content, Post post) {
         this.mbti = mbti;
         this.nickname = nickname;
         this.content = content;
