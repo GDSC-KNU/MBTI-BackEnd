@@ -12,12 +12,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class ReplyServiceImpl implements ReplyService {
     private final ReplyRepository replyRepository;
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
+
+    @Override
+    public List<Reply> getReplyList(Long postId) {
+        return replyRepository.findAllByPostId(postId);
+    }
 
     @Override
     @Transactional
