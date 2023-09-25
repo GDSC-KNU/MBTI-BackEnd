@@ -32,7 +32,7 @@ public class ReplyServiceImpl implements ReplyService {
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 게시글이 없습니다.")
         );
-        Member member = memberRepository.findByName(requestDto.getNickname()).orElseThrow(
+        Member member = memberRepository.findByEmail(requestDto.getEmail()).orElseThrow(
                 () -> new IllegalArgumentException("해당 사용자가 없습니다.")
         );
         requestDto.setMember(member);
