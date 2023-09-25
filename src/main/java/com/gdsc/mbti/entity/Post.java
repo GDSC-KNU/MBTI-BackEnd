@@ -18,7 +18,6 @@ public class Post extends BaseTimeEntity {
 
     private String mbti;
 
-    private String nickname;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
@@ -32,9 +31,8 @@ public class Post extends BaseTimeEntity {
     private Member member;
 
     @Builder
-    public Post(String mbti, String nickname, String content, List<Reply> replies, Member member) {
+    public Post(String mbti, String content, List<Reply> replies, Member member) {
         this.mbti = mbti;
-        this.nickname = nickname;
         this.content = content;
         this.replies = replies;
         this.member = member;
@@ -42,10 +40,6 @@ public class Post extends BaseTimeEntity {
 
     public void updateContent(String content) {
         this.content = content;
-    }
-
-    public void updateNickname(String nickname) {
-        this.nickname = nickname;
     }
 
     public void updateMbti(String mbti) {

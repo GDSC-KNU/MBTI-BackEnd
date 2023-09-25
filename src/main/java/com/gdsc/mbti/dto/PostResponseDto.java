@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class PostResponseDto {
     private Long id;
     private String mbti;
-    private String nickname;
+    private String name;
     private String content;
     private List<ReplyResponseDto> replies;
     private Long memberId;
@@ -24,7 +24,7 @@ public class PostResponseDto {
     public PostResponseDto(Post entity) {
         this.id = entity.getId();
         this.mbti = entity.getMbti();
-        this.nickname = entity.getNickname();
+        this.name = entity.getMember().getName();
         this.content = entity.getContent();
         this.replies = entity.getReplies().stream().map(ReplyResponseDto::new).collect(Collectors.toList());
         this.memberId = entity.getMember().getId();

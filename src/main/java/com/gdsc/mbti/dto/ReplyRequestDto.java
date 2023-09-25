@@ -11,15 +11,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReplyRequestDto {
     private String mbti;
-    private String nickname;
+    private String email;
     private String content;
     private Post post;
     private Member member;
 
     @Builder
-    public ReplyRequestDto(String mbti, String nickname, String content, Post post) {
+    public ReplyRequestDto(String mbti, String email, String content, Post post) {
         this.mbti = mbti;
-        this.nickname = nickname;
+        this.email = email;
         this.content = content;
         this.post = post;
     }
@@ -28,7 +28,6 @@ public class ReplyRequestDto {
     public Reply toEntity() {
         return Reply.builder()
                 .mbti(mbti)
-                .nickname(nickname)
                 .content(content)
                 .post(post)
                 .member(member)

@@ -6,20 +6,18 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.Collections;
-
 @Getter
 @NoArgsConstructor
 public class PostRequestDto {
     private String mbti;
-    private String nickname;
+    private String email;
     private String content;
     private Member member;
 
     @Builder
-    public PostRequestDto(String mbti, String nickname, String content) {
+    public PostRequestDto(String mbti, String email, String content) {
         this.mbti = mbti;
-        this.nickname = nickname;
+        this.email = email;
         this.content = content;
     }
 
@@ -30,7 +28,6 @@ public class PostRequestDto {
     public Post toEntity() {
         return Post.builder()
                 .mbti(mbti)
-                .nickname(nickname)
                 .content(content)
                 .member(member)
                 .build();

@@ -18,8 +18,6 @@ public class Reply extends BaseTimeEntity {
 
     private String mbti;
 
-    private String nickname;
-
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
@@ -32,9 +30,8 @@ public class Reply extends BaseTimeEntity {
     private Member member;
 
     @Builder
-    public Reply(String mbti, String nickname, String content, Post post, Member member) {
+    public Reply(String mbti, String content, Post post, Member member) {
         this.mbti = mbti;
-        this.nickname = nickname;
         this.content = content;
         this.post = post;
         this.member = member;

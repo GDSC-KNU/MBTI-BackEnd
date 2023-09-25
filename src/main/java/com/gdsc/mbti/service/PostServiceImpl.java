@@ -38,7 +38,7 @@ public class PostServiceImpl implements PostService {
     @Override
     @Transactional
     public Long save(PostRequestDto requestDto) {
-        Member member = memberRepository.findByName(requestDto.getNickname()).orElseThrow(
+        Member member = memberRepository.findByEmail(requestDto.getEmail()).orElseThrow(
                 () -> new IllegalArgumentException("해당 사용자가 없습니다.")
         );
         requestDto.setMember(member);

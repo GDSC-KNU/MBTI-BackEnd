@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 public class ReplyResponseDto {
     private Long id;
     private String mbti;
-    private String nickname;
+    private String name;
     private String content;
     private Long postId;
     private Long memberId;
@@ -18,7 +18,7 @@ public class ReplyResponseDto {
     public ReplyResponseDto(Reply reply) {
         this.id = reply.getId();
         this.mbti = reply.getMbti();
-        this.nickname = reply.getNickname();
+        this.name = reply.getMember().getName();
         this.content = reply.getContent();
         this.postId = reply.getPost().getId();
         this.memberId = reply.getMember().getId();
