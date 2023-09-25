@@ -27,12 +27,17 @@ public class Post extends BaseTimeEntity {
     @OrderBy("id asc")
     private List<Reply> replies = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
     @Builder
-    public Post(String mbti, String nickname, String content, List<Reply> replies) {
+    public Post(String mbti, String nickname, String content, List<Reply> replies, Member member) {
         this.mbti = mbti;
         this.nickname = nickname;
         this.content = content;
         this.replies = replies;
+        this.member = member;
     }
 
     public void updateContent(String content) {

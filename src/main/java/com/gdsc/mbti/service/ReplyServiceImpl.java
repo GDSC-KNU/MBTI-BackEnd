@@ -2,8 +2,10 @@ package com.gdsc.mbti.service;
 
 import com.gdsc.mbti.dto.ReplyRequestDto;
 import com.gdsc.mbti.dto.ReplyUpdateRequestDto;
+import com.gdsc.mbti.entity.Member;
 import com.gdsc.mbti.entity.Reply;
 import com.gdsc.mbti.entity.Post;
+import com.gdsc.mbti.repository.MemberRepository;
 import com.gdsc.mbti.repository.ReplyRepository;
 import com.gdsc.mbti.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ReplyServiceImpl implements ReplyService {
     private final ReplyRepository replyRepository;
     private final PostRepository postRepository;
+    private final MemberRepository memberRepository;
 
     @Override
     @Transactional
@@ -22,6 +25,10 @@ public class ReplyServiceImpl implements ReplyService {
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("해당 게시글이 없습니다.")
         );
+        Member member = memberRepository.findByName(requestDto.getNickname()).orElseThrow(
+                () -> new IllegalArgumentException("해당 사용자가 없습니다.")
+        );
+        requestDto.setMember(member);
         requestDto.setPost(post);
         return replyRepository.save(requestDto.toEntity()).getId();
     }

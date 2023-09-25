@@ -12,6 +12,7 @@ public class ReplyResponseDto {
     private String nickname;
     private String content;
     private Long postId;
+    private Long memberId;
 
 
     public ReplyResponseDto(Reply reply) {
@@ -20,5 +21,6 @@ public class ReplyResponseDto {
         this.nickname = reply.getNickname();
         this.content = reply.getContent();
         this.postId = reply.getPost().getId();
+        this.memberId = reply.getMember().getId();
     }
 }

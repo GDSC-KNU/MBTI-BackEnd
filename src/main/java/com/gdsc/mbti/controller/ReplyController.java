@@ -20,7 +20,7 @@ public class ReplyController {
     }
 
     @PutMapping("/{id}/reply/{replyId}")
-    public Long updateReply( @PathVariable("id") Long id, @PathVariable("replyId") Long replyId, @RequestBody ReplyUpdateRequestDto requestDto) {
+    public Long updateReply(@PathVariable("id") Long id, @PathVariable("replyId") Long replyId, @RequestBody ReplyUpdateRequestDto requestDto) {
         return replyService.update(replyId, requestDto);
     }
 

@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Table(name = "comment")
@@ -25,12 +27,17 @@ public class Reply extends BaseTimeEntity {
     @JoinColumn(name = "post_id")
     private Post post;
 
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
     @Builder
-    public Reply(String mbti, String nickname, String content, Post post) {
+    public Reply(String mbti, String nickname, String content, Post post, Member member) {
         this.mbti = mbti;
         this.nickname = nickname;
         this.content = content;
         this.post = post;
+        this.member = member;
     }
 
     public void updateContent(String content) {

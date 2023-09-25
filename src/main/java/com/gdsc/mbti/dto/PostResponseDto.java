@@ -17,6 +17,7 @@ public class PostResponseDto {
     private String nickname;
     private String content;
     private List<ReplyResponseDto> replies;
+    private Long memberId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -26,6 +27,7 @@ public class PostResponseDto {
         this.nickname = entity.getNickname();
         this.content = entity.getContent();
         this.replies = entity.getReplies().stream().map(ReplyResponseDto::new).collect(Collectors.toList());
+        this.memberId = entity.getMember().getId();
         this.createdAt = entity.getCreatedAt();
         this.updatedAt = entity.getUpdatedAt();
     }
