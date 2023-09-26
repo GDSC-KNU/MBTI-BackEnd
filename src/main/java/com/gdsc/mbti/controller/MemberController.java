@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -34,9 +35,9 @@ public class MemberController {
     }
 
     @GetMapping("/member/info")
-    public ResponseEntity getMemberInfo(Principal principal) {
-        Member member = memberService.getMember(Long.valueOf(principal.getName()));
-
-        return ResponseEntity.ok().body(MemberDto.convertToDto(member));
+    public ResponseEntity getMemberInfo(@AuthenticationPrincipal Member currentMember) {
+        // 멤버 이름에 Long.valueOf() 사용...
+//        Member member = memberService.getMember(Long.valueOf(principal.getName()));
+        return ResponseEntity.ok().body(MemberDto.convertToDto(currentMember));
     }
 }
