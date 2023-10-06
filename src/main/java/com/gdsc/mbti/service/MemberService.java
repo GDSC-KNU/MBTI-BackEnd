@@ -11,6 +11,8 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -76,5 +78,11 @@ public class MemberService {
         } catch (GeneralSecurityException | IOException e) {
             return null;
         }
+    }
+    public Member getGoogleLoginMember() {
+        OAuth2AuthenticationToken authenticationToken = (OAuth2AuthenticationToken) SecurityContextHolder.getContext();
+        String email = authenticationToken.getPrincipal().getAttributes().get("email").toString();
+
+        return memberRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("회원의 정보가 일치하지 않습니다"));
     }
 }

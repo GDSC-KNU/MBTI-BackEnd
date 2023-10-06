@@ -35,9 +35,10 @@ public class MemberController {
     }
 
     @GetMapping("/member/info")
-    public ResponseEntity getMemberInfo(@AuthenticationPrincipal Member currentMember) {
+    public ResponseEntity getMemberInfo() {
         // 멤버 이름에 Long.valueOf() 사용...
 //        Member member = memberService.getMember(Long.valueOf(principal.getName()));
-        return ResponseEntity.ok().body(MemberDto.convertToDto(currentMember));
+        Member member = memberService.getGoogleLoginMember();
+        return ResponseEntity.ok().body(MemberDto.convertToDto(member));
     }
 }
