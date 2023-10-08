@@ -2,6 +2,7 @@ package com.gdsc.mbti.service;
 
 import com.gdsc.mbti.config.JWTUtils;
 import com.gdsc.mbti.dto.IdTokenRequestDto;
+import com.gdsc.mbti.dto.MemberDto;
 import com.gdsc.mbti.entity.Member;
 import com.gdsc.mbti.repository.MemberRepository;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
@@ -9,6 +10,9 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -23,8 +27,11 @@ public class MemberService {
     private final JWTUtils jwtUtils;
     private final GoogleIdTokenVerifier verifier;
 
+    @Value("${app.jwtSecret}")
+    private String secretKey;
+
     public MemberService(@Value("${app.googleClientId}") String clientId, MemberRepository memberRepository,
-                          JWTUtils jwtUtils) {
+                         JWTUtils jwtUtils) {
         this.memberRepository = memberRepository;
         this.jwtUtils = jwtUtils;
         NetHttpTransport transport = new NetHttpTransport();
@@ -76,5 +83,18 @@ public class MemberService {
         } catch (GeneralSecurityException | IOException e) {
             return null;
         }
+    }
+
+    public MemberDto getMemberInfo(String accessToken) {
+        Claims body = Jwts.parserBuilder()
+                .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes()))
+                .build()
+                .parseClaimsJws(accessToken)
+                .getBody();
+
+        Long memberId = Long.parseLong(body.getSubject());
+        Member findMember = memberRepository.findById(memberId).orElseThrow( () -> new IllegalArgumentException("멤버가 존재하지 않습니다."));
+
+        return MemberDto.convertToDto(findMember);
     }
 }
