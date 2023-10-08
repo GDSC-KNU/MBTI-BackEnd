@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class Member extends BaseTimeEntity{
+    
+    // TODO: mbti 필드, post/reply 필드 추가
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
