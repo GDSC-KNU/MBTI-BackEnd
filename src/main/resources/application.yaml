@@ -1,5 +1,8 @@
 spring:
   jpa:
+    properties:
+      jdbc:
+        time_zone: Asia/Seoul
     defer-datasource-initialization: true
   sql:
     init:
@@ -10,12 +13,9 @@ spring:
   config:
     activate:
       on-profile: local
-  jpa:
-    properties:
-      jdbc:
-        time_zone: Asia/Seoul
 
 --- # Prod
+
 spring:
   config:
     activate:
