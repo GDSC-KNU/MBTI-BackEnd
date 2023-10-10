@@ -1,6 +1,7 @@
 package com.gdsc.mbti.dto;
 
-import com.gdsc.mbti.entity.Member;
+import com.gdsc.mbti.validation.ValidEnum;
+import com.gdsc.mbti.entity.Mbti;
 import com.gdsc.mbti.entity.Reply;
 import com.gdsc.mbti.entity.Post;
 import lombok.Builder;
@@ -10,27 +11,32 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class ReplyRequestDto {
+    @ValidEnum(enumClass = Mbti.class)
     private String mbti;
-    private String email;
+    private String name;
     private String content;
+    private String password;
     private Post post;
-    private Member member;
+//    private Member member;
 
     @Builder
-    public ReplyRequestDto(String mbti, String email, String content, Post post) {
+    public ReplyRequestDto(String mbti, String name, String content, String password, Post post) {
         this.mbti = mbti;
-        this.email = email;
+        this.name = name;
         this.content = content;
+        this.password = password;
         this.post = post;
     }
 
 
     public Reply toEntity() {
         return Reply.builder()
-                .mbti(mbti)
+                .mbti(Mbti.valueOf(mbti))
+                .name(name)
                 .content(content)
                 .post(post)
-                .member(member)
+                .password(password)
+//                .member(member)
                 .build();
     }
 
@@ -38,7 +44,7 @@ public class ReplyRequestDto {
         this.post = post;
     }
 
-    public void setMember(Member member) {
-        this.member = member;
-    }
+//    public void setMember(Member member) {
+//        this.member = member;
+//    }
 }

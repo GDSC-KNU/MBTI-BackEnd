@@ -12,15 +12,15 @@ public class ReplyResponseDto {
     private String name;
     private String content;
     private Long postId;
-    private Long memberId;
+//    private Long memberId;
 
 
     public ReplyResponseDto(Reply reply) {
         this.id = reply.getId();
-        this.mbti = reply.getMbti();
-        this.name = reply.getMember().getName();
+        this.mbti = reply.getMbti().toString();
+        this.name = reply.getName();
         this.content = reply.getContent();
         this.postId = reply.getPost().getId();
-        this.memberId = reply.getMember().getId();
+//        this.memberId = reply.getMember().getId();
     }
 }

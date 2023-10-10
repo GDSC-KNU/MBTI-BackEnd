@@ -5,6 +5,7 @@ import com.gdsc.mbti.dto.PostResponseDto;
 import com.gdsc.mbti.dto.PostUpdateRequestDto;
 import com.gdsc.mbti.entity.Post;
 import com.gdsc.mbti.service.PostService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class PostController {
     }
 
     @PostMapping("/write")
-    public Long writePost(@RequestBody PostRequestDto requestDto) {
+    public Long writePost(@RequestBody @Valid PostRequestDto requestDto) {
         return postService.save(requestDto);
     }
 

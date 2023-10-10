@@ -16,33 +16,33 @@ public class Post extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String mbti;
+    private Mbti mbti;
 
+    private String name;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
+
+    private String password;
 
     @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     @OrderBy("id asc")
     private List<Reply> replies = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member member;
+//    @ManyToOne
+//    @JoinColumn(name = "member_id")
+//    private Member member;
 
     @Builder
-    public Post(String mbti, String content, List<Reply> replies, Member member) {
+    public Post(Mbti mbti, String name,String content, String password, List<Reply> replies) {
         this.mbti = mbti;
+        this.name = name;
         this.content = content;
+        this.password = password;
         this.replies = replies;
-        this.member = member;
     }
 
     public void updateContent(String content) {
         this.content = content;
-    }
-
-    public void updateMbti(String mbti) {
-        this.mbti = mbti;
     }
 }

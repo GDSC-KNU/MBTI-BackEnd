@@ -1,11 +1,10 @@
 package com.gdsc.mbti.entity;
 
+import com.gdsc.mbti.validation.ValidEnum;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Entity
 @Getter
@@ -16,25 +15,31 @@ public class Reply extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String mbti;
+    private Mbti mbti;
+
+    private String name;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
+
+    private String password;
 
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
 
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member member;
+//    @ManyToOne
+//    @JoinColumn(name = "member_id")
+//    private Member member;
 
     @Builder
-    public Reply(String mbti, String content, Post post, Member member) {
+    public Reply(Mbti mbti, String name, String content, String password, Post post) {
         this.mbti = mbti;
+        this.name = name;
         this.content = content;
+        this.password = password;
         this.post = post;
-        this.member = member;
+//        this.member = member;
     }
 
     public void updateContent(String content) {
