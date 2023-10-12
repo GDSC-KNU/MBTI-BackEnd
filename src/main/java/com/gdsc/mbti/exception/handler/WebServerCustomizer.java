@@ -1,4 +1,4 @@
-package com.gdsc.mbti.config;
+package com.gdsc.mbti.exception.handler;
 
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.ErrorPage;
