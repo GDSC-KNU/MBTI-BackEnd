@@ -1,5 +1,6 @@
 package com.gdsc.mbti.service;
 
+import com.gdsc.mbti.dto.PostDeleteRequestDto;
 import com.gdsc.mbti.dto.PostRequestDto;
 import com.gdsc.mbti.dto.PostResponseDto;
 import com.gdsc.mbti.dto.PostUpdateRequestDto;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
@@ -28,7 +31,7 @@ public class PostServiceImpl implements PostService {
     @Transactional(readOnly = true)
     public PostResponseDto getPost(Long id) {
         Post entity = postRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당 게시글이 없습니다.")
+                () -> new NoSuchElementException("해당 게시글이 없습니다.")
         );
         return new PostResponseDto(entity);
     }
@@ -47,8 +50,11 @@ public class PostServiceImpl implements PostService {
     @Transactional
     public Long update(Long id, PostUpdateRequestDto requestDto) {
         Post updatePost = postRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당 게시글이 없습니다.")
+                () -> new NoSuchElementException("수정할 게시글이 없습니다.")
         );
+        if (requestDto.getPassword() != null && !requestDto.getPassword().equals(updatePost.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
         updatePost.updateContent(requestDto.getContent());
         postRepository.save(updatePost);
         return id;
@@ -56,10 +62,13 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional
-    public Long delete(Long id) {
-        postRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("해당 게시글이 없습니다.")
+    public Long delete(Long id, PostDeleteRequestDto requestDto) {
+        Post deletePost = postRepository.findById(id).orElseThrow(
+                () -> new NoSuchElementException("삭제할 게시글이 없습니다.")
         );
+        if (requestDto.getPassword() != null && !requestDto.getPassword().equals(deletePost.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
         postRepository.deleteById(id);
         return id;
     }

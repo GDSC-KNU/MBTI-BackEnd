@@ -2,6 +2,7 @@ package com.gdsc.mbti.entity;
 
 import com.gdsc.mbti.validation.ValidEnum;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class Reply extends BaseTimeEntity {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
+    @NotNull
     private String password;
 
     @ManyToOne

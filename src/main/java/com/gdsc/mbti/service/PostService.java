@@ -1,5 +1,6 @@
 package com.gdsc.mbti.service;
 
+import com.gdsc.mbti.dto.PostDeleteRequestDto;
 import com.gdsc.mbti.dto.PostRequestDto;
 import com.gdsc.mbti.dto.PostResponseDto;
 import com.gdsc.mbti.dto.PostUpdateRequestDto;
@@ -15,5 +16,5 @@ public interface PostService {
 
     public Long update(Long id, PostUpdateRequestDto requestDto);
 
-    public Long delete(Long id);
+    public Long delete(Long id, PostDeleteRequestDto requestDto);
 }

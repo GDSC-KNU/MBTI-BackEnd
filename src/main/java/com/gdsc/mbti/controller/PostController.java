@@ -1,5 +1,6 @@
 package com.gdsc.mbti.controller;
 
+import com.gdsc.mbti.dto.PostDeleteRequestDto;
 import com.gdsc.mbti.dto.PostRequestDto;
 import com.gdsc.mbti.dto.PostResponseDto;
 import com.gdsc.mbti.dto.PostUpdateRequestDto;
@@ -8,6 +9,9 @@ import com.gdsc.mbti.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,22 +32,22 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    public PostResponseDto getPost(@PathVariable("id") Long id) {
-        return postService.getPost(id);
+    public ResponseEntity<PostResponseDto> getPost(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(postService.getPost(id));
     }
 
     @PostMapping("/write")
-    public Long writePost(@RequestBody @Valid PostRequestDto requestDto) {
-        return postService.save(requestDto);
+    public ResponseEntity<Long> writePost(@RequestBody @Valid PostRequestDto requestDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(postService.save(requestDto));
     }
 
     @PutMapping("/{id}")
-    public Long updatePost(@PathVariable("id") Long id, @RequestBody PostUpdateRequestDto requestDto) {
-        return postService.update(id, requestDto);
+    public ResponseEntity<Long> updatePost(@PathVariable("id") Long id, @RequestBody PostUpdateRequestDto requestDto) {
+        return ResponseEntity.ok(postService.update(id, requestDto));
     }
 
     @DeleteMapping("/{id}")
-    public Long deletePost(@PathVariable("id") Long id) {
-        return postService.delete(id);
+    public ResponseEntity<Long> deletePost(@PathVariable("id") Long id, @RequestBody PostDeleteRequestDto requestDto) {
+        return ResponseEntity.ok(postService.delete(id, requestDto));
     }
 }

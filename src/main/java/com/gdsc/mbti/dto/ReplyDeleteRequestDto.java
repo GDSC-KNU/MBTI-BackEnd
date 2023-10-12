@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class PostUpdateRequestDto {
-    private String content;
+public class ReplyDeleteRequestDto {
     private String password;
 }

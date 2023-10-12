@@ -1,5 +1,6 @@
 package com.gdsc.mbti.service;
 
+import com.gdsc.mbti.dto.ReplyDeleteRequestDto;
 import com.gdsc.mbti.dto.ReplyRequestDto;
 import com.gdsc.mbti.dto.ReplyUpdateRequestDto;
 import com.gdsc.mbti.entity.Reply;
@@ -12,5 +13,5 @@ public interface ReplyService {
 
     public Long update(Long id, ReplyUpdateRequestDto requestDto);
 
-    public Long delete(Long id);
+    public Long delete(Long id, ReplyDeleteRequestDto requestDto);
 }
